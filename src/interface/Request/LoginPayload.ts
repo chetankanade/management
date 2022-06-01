@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsDefined, IsString } from "class-validator";
+import { IsDefined, IsEmail, IsString } from "class-validator";
 
 /**
  * email: "patelsachinsp269@gmail.com"
@@ -7,7 +7,7 @@ import { IsDefined, IsString } from "class-validator";
  */
 
 export class LoginPayload {
-  @Expose() @IsDefined() @IsString() email: string;
+  @Expose() @IsDefined() @IsString() @IsEmail() email: string;
 
-  @IsDefined() @IsString() password: string;
+  @Expose() @IsDefined() @IsString() password: string;
 }

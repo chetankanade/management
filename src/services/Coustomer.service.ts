@@ -12,7 +12,7 @@ import {
   getTransection,
   updateCustomer,
 } from "../repository/Customer.repository";
-import { jwtWebToken } from "../utils/util";
+import { hasPassword, jwtWebToken, verifyPassword } from "../utils/util";
 
 export default class CoustomerService {
   // For Signup
@@ -20,6 +20,10 @@ export default class CoustomerService {
     let user = await addCustomer(body);
 
     user = await getCustomer(user.id);
+
+    let hashword = await hasPassword(user.password);
+
+    await updateCustomer({ id: user.id }, { password: hashword });
 
     const token = jwtWebToken({ id: user.id });
 
@@ -29,6 +33,13 @@ export default class CoustomerService {
   // For Signin
   public async getCustomer(body: LoginPayload): Promise<ICustomer> {
     let user = await getCustomer({ email: body.email });
+    console.log(user);
+
+    let checkPassword = await verifyPassword(body.password, user.password);
+
+    console.log(checkPassword);
+
+    if (!checkPassword) throw new AppError(400, "Password InCorrect");
 
     if (!user) {
       throw new Error("User not Found");

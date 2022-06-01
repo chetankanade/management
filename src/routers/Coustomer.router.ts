@@ -11,7 +11,7 @@ CoustomerRouter.post("/signup", async (req, res) => {
   try {
     const responce = await controller.signup(req.body);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "Success",
       message: "You have Successfully registered",
       data: responce,
@@ -19,7 +19,7 @@ CoustomerRouter.post("/signup", async (req, res) => {
   } catch (err) {
     return res.status(400).json({
       status: "Fail",
-      message: err.message,
+      message: err,
     });
   }
 });
@@ -28,7 +28,7 @@ CoustomerRouter.post("/login", async (req, res) => {
   try {
     const responce = await controller.login(req.body);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "Success",
       message: "You have login",
       data: responce,
@@ -44,7 +44,7 @@ CoustomerRouter.post("/get-user-details", checkJWTCS, async (req, res) => {
   try {
     const responce = await controller.getUserDetails(req.body);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "Success",
       message: "Your Details",
       data: responce,
@@ -61,7 +61,7 @@ CoustomerRouter.post("/transection", checkJWTCS, async (req, res) => {
   try {
     const responce = await controller.getUserTransection(req.body);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "Success",
       message: "Transection Details",
       data: responce,

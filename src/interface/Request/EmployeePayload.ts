@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsDefined, IsString } from "class-validator";
+import { IsDefined, IsEmail, IsString } from "class-validator";
 
 /**
  * name: "sachin Patel"
@@ -19,7 +19,7 @@ export class EmployeePayload {
 
   @Expose() @IsDefined() @IsString() phone: string;
 
-  @Expose() @IsDefined() @IsString() email: string;
+  @Expose() @IsEmail() @IsDefined() @IsString() email: string;
 
   @IsDefined() @IsString() password: string;
 

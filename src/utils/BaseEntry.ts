@@ -1,5 +1,6 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import * as bcrypt from "bcrypt";
+import { IsEmail } from "class-validator";
 
 @Entity()
 export class BaseEntry extends BaseEntity {
@@ -20,6 +21,7 @@ export class BaseEntry extends BaseEntity {
   @Column({
     unique: true,
   })
+  @IsEmail()
   email: string;
 
   @Column({
@@ -40,12 +42,4 @@ export class BaseEntry extends BaseEntity {
     default: () => "NOW()",
   })
   Update_At: Date;
-
-  hasPassword() {
-    this.password = bcrypt.hashSync(this.password, 10);
-  }
-
-  checkIfUnencriptedPasswordIsValid(unencriptedPassword: string) {
-    this.password = unencriptedPassword;
-  }
 }
